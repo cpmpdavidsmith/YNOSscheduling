@@ -1,0 +1,38 @@
+﻿@model Schedule
+
+<h2>Create a New Schedule</h2>
+
+@using (Html.BeginForm("InsertScheduleToDatabase", "Schedule", "Post"))
+{
+    @{
+        var daysOfWeek = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+    }
+
+    @foreach (var day in daysOfWeek)
+    {
+        <label asp-for="@($"{day}Start")" class="control-label">@($"{day} (Start)")</label>
+        <input type="time" step="00:15" name="@($"{day}Start")" class="form-control" />
+
+        <label asp-for="@($"{day}Finnish")" class="control-label">@($"{day} (Finish)")</label>
+        <input type="time" step="00:15" name="@($"{day}Finnish")" class="form-control" />
+    }
+
+
+    //Category INFO
+    <div class="form-group">
+        <label for="">Select a Category</label>
+        <select class="form-control" name="CategoryID" value="">
+            @foreach (var cat in Model.Categories)
+            {
+                <option value="@cat.CategoryID">@cat.CategoryID @cat.FirstName</option>
+            }
+        </select>
+    </div>
+
+    //Submit button
+    <input type="submit" value="Create Schedule" class="btn btn-primary" />
+}
+
+
+
+
